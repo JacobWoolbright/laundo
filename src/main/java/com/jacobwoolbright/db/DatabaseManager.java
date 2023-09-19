@@ -130,54 +130,6 @@ public class DatabaseManager {
         return availabilityMap;
     }
 
-    public Map<java.util.Date, Integer> getDryerAvailabilityByTime(String timeString) {
-        Map<java.util.Date, Integer> availabilityMap = new HashMap<>();
-
-        String timeValue = timeString.substring(0, timeString.length() - 1);
-        String timeUnit = timeString.substring(timeString.length() - 1);
-
-        int interval;
-        switch (timeUnit) {
-            case "m":
-                interval = Integer.parseInt(timeValue);
-                break;
-            case "h":
-                interval = Integer.parseInt(timeValue) * 60;
-                break;
-            case "d":
-                interval = Integer.parseInt(timeValue) * 24 * 60;
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid time unit: " + timeUnit);
-        }
-
-        String query = "SELECT FROM_UNIXTIME(FLOOR(UNIX_TIMESTAMP(`time`) / 300) * 300 + 150) AS average_time, " +
-                "SUM(`available`) AS total_available " +
-                "FROM machines " +
-                "WHERE `machineID` >= 101 " +
-                "AND 'time' >= NOW() - INTERVAL ? SECOND " +
-                "GROUP BY average_time";
-
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, interval * Integer.parseInt(timeValue));
-
-            try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    Timestamp averageTime = resultSet.getTimestamp("average_time");
-                    java.util.Date averageTimeJava = new java.util.Date(averageTime.getTime());
-                    int totalAvailable = resultSet.getInt("total_available");
-                    availabilityMap.put(averageTimeJava, totalAvailable);
-                }
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle exception as needed
-        }
-
-        return availabilityMap;
-    }
-
     public Map<java.util.Date, Integer> getDryerAvailabilityRaw() {
         Map<java.util.Date, Integer> availabilityMap = new HashMap<>();
 
