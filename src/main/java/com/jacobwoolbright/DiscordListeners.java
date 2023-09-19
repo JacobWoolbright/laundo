@@ -75,6 +75,6 @@ public class DiscordListeners extends ListenerAdapter {
             public void run() {
                 message.editMessageEmbeds(BulkEmbed.StatusEmbed()).queue();
             }
-        }, 5*60*1000, 5 * 60 * 1000); // 5 minutes in milliseconds
+        }, 5*60*1000, 3 * 60 * 1000); // 3 minutes in milliseconds
     }
 }
