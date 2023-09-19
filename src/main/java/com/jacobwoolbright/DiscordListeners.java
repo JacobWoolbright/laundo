@@ -2,17 +2,12 @@ package com.jacobwoolbright;
 
 import com.sun.istack.internal.NotNull;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
-import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.utils.FileUpload;
 
-import javax.imageio.ImageIO;
 import java.io.File;
-import java.io.IOException;
-import java.util.Collection;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -61,8 +56,9 @@ public class DiscordListeners extends ListenerAdapter {
                 return;
             }
             event.getMessage().reply("Here's your graph:").addFiles(FileUpload.fromData(new File("time_line_graph.png"))).queue();
-        }
-        else {
+        } else if (message.startsWith("!test")) {
+            FilterGraph.getGraphPointsDryer();
+        } else {
             System.out.println("Unknown command: " + message);
         }
     }
@@ -79,6 +75,6 @@ public class DiscordListeners extends ListenerAdapter {
             public void run() {
                 message.editMessageEmbeds(BulkEmbed.StatusEmbed()).queue();
             }
-        }, 1000, 5 * 60 * 1000); // 5 minutes in milliseconds
+        }, 5*60*1000, 5 * 60 * 1000); // 5 minutes in milliseconds
     }
 }

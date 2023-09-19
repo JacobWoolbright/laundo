@@ -20,7 +20,7 @@ public class GraphMaker {
     public static void GenerateLineGraphWashers(){
         TimeSeries series = new TimeSeries("Available Washers in Couch Center in the Last 24h");
 
-        Map<Date, Integer> points = DatabaseManager.getInstance().getWasherAvailabilityBy5Minutes();
+        Map<Date, Integer> points = FilterGraph.getGraphPointsWasher();
 
         for(Date time:points.keySet()){
             series.add(new Second(time), points.get(time));
@@ -52,7 +52,8 @@ public class GraphMaker {
     public static void GenerateLineGraphDryers(){
         TimeSeries series = new TimeSeries("Available Dryers in Couch Center in the Last 24h");
 
-        Map<Date, Integer> points = DatabaseManager.getInstance().getDryerAvailabilityBy5Minutes();
+        Map<Date, Integer> points = FilterGraph.getGraphPointsDryer();
+
 
         for(Date time:points.keySet()){
             series.add(new Second(time), points.get(time));
