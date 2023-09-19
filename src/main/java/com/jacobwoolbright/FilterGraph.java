@@ -28,11 +28,6 @@ public class FilterGraph {
             }
         }
 
-        System.out.println("-----------------------");
-        for(Date date : result.keySet()){
-            System.out.println(date + ": " + result.get(date));
-        }
-
         return result;
     }
 
@@ -53,11 +48,6 @@ public class FilterGraph {
             if(!found){
                 result.put(apiDate, data.get(apiDate));
             }
-        }
-
-        System.out.println("-----------------------");
-        for(Date date : result.keySet()){
-            System.out.println(date + ": " + result.get(date));
         }
 
         return result;
