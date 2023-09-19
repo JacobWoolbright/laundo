@@ -178,6 +178,57 @@ public class DatabaseManager {
         return availabilityMap;
     }
 
+    public Map<java.util.Date, Integer> getDryerAvailabilityRaw() {
+        Map<java.util.Date, Integer> availabilityMap = new HashMap<>();
 
+        String query = "SELECT time, available\n" +
+                "FROM machines\n" +
+                "WHERE time >= NOW() - INTERVAL 1 DAY\n" +
+                "AND machineID >= 101;";
 
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Timestamp captureTime = resultSet.getTimestamp("time");
+                    java.util.Date averageTimeJava = new java.util.Date(captureTime.getTime());
+                    int totalAvailable = resultSet.getInt("available");
+                    availabilityMap.put(averageTimeJava, totalAvailable);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle exception as needed
+        }
+
+        return availabilityMap;
+    }
+
+    public Map<java.util.Date, Integer> getWasherAvailabilityRaw() {
+        Map<java.util.Date, Integer> availabilityMap = new HashMap<>();
+
+        String query = "SELECT time, available\n" +
+                "FROM machines\n" +
+                "WHERE time >= NOW() - INTERVAL 1 DAY\n" +
+                "AND machineID <= 100;";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Timestamp captureTime = resultSet.getTimestamp("time");
+                    java.util.Date averageTimeJava = new java.util.Date(captureTime.getTime());
+                    int totalAvailable = resultSet.getInt("available");
+                    availabilityMap.put(averageTimeJava, totalAvailable);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle exception as needed
+        }
+
+        return availabilityMap;
+    }
 }
