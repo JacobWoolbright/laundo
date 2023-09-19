@@ -42,9 +42,16 @@ public class DiscordListeners extends ListenerAdapter {
         else if(message.startsWith("!graph")){
             String[] split = message.split(" ");
             if(split[1].equals("washer") || split[1].equals("wash")){
-                GraphMaker.GenerateLineGraphWashers();
+                if(split.length == 3){
+                    GraphMaker.generateLineGraphWashers(split[2]);
+                } else if (split.length == 4) {
+                    GraphMaker.generateLineGraphWashers(split[2], split[3]);
+                }
+                else{
+                    GraphMaker.generateLineGraphWashers();
+                }
             } else if (split[1].equals("dryer") || split[1].equals("dry")) {
-                GraphMaker.GenerateLineGraphDryers();
+                GraphMaker.GenerateLineGraphDryers(); // TODO: custom dryer graph
             }
             else{
                 event.getMessage().reply("Please use !graph washer or !graph dryer.").queue();
