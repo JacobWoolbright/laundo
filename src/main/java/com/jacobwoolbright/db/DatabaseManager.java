@@ -228,6 +228,47 @@ public class DatabaseManager {
             e.printStackTrace();
             // Handle exception as needed
         }
+        return availabilityMap;
+    }
+
+    public Map<java.util.Date, Integer> getWasherAvailabilityRaw(String timespan) {
+        Map<java.util.Date, Integer> availabilityMap = new HashMap<>();
+
+        String query = "";
+        if(timespan.endsWith("d")){
+            query = "SELECT time, available\n" +
+                    "FROM machines\n" +
+                    "WHERE time >= NOW() - INTERVAL " + timespan.substring(0,timespan.length()-2) + "DAY" +
+                    "AND machineID <= 100;";
+        } else if (timespan.endsWith("h")) {
+            query = "SELECT time, available\n" +
+                    "FROM machines\n" +
+                    "WHERE time >= NOW() - INTERVAL " + timespan.substring(0,timespan.length()-2) + "HOUR" +
+                    "AND machineID <= 100;";
+        }
+        else if (timespan.endsWith("m")) {
+            query = "SELECT time, available\n" +
+                    "FROM machines\n" +
+                    "WHERE time >= NOW() - INTERVAL " + timespan.substring(0,timespan.length()-2) + "MINUTE" +
+                    "AND machineID <= 100;";
+        }
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Timestamp captureTime = resultSet.getTimestamp("time");
+                    java.util.Date averageTimeJava = new java.util.Date(captureTime.getTime());
+                    int totalAvailable = resultSet.getInt("available");
+                    availabilityMap.put(averageTimeJava, totalAvailable);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle exception as needed
+        }
+
 
         return availabilityMap;
     }

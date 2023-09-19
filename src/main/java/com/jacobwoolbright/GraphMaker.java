@@ -16,10 +16,74 @@ import java.util.Map;
 
 public class GraphMaker {
 
-    public static void GenerateLineGraphWashers(){
+    public static void generateLineGraphWashers(){
         TimeSeries series = new TimeSeries("Available Washers in Couch Center in the Last 24h");
 
         Map<Date, Integer> points = FilterGraph.getGraphPointsWasher();
+
+        for(Date time:points.keySet()){
+            series.add(new Second(time), points.get(time));
+        }
+
+        TimeSeriesCollection dataset = new TimeSeriesCollection(series);
+        JFreeChart chart = ChartFactory.createTimeSeriesChart(
+                "Available Washers in Couch Center in the Last 24h",
+                "Time",
+                "# of available machines",
+                dataset,
+                false,
+                true,
+                false
+        );
+
+        XYPlot plot = chart.getXYPlot();
+        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+        plot.setRenderer(renderer);
+
+        try {
+            ChartUtils.saveChartAsPNG(new File("time_line_graph.png"), chart, 800, 600);
+            System.out.println("Chart saved as time_line_graph.png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void generateLineGraphWashers(String timeSpan){
+        TimeSeries series = new TimeSeries("Available Washers in Couch Center in the Last " + timeSpan);
+
+        Map<Date, Integer> points = FilterGraph.getGraphPointsWasher(timeSpan);
+
+        for(Date time:points.keySet()){
+            series.add(new Second(time), points.get(time));
+        }
+
+        TimeSeriesCollection dataset = new TimeSeriesCollection(series);
+        JFreeChart chart = ChartFactory.createTimeSeriesChart(
+                "Available Washers in Couch Center in the Last 24h",
+                "Time",
+                "# of available machines",
+                dataset,
+                false,
+                true,
+                false
+        );
+
+        XYPlot plot = chart.getXYPlot();
+        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+        plot.setRenderer(renderer);
+
+        try {
+            ChartUtils.saveChartAsPNG(new File("time_line_graph.png"), chart, 800, 600);
+            System.out.println("Chart saved as time_line_graph.png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void generateLineGraphWashers(String timeSpan, String groupTime){
+        TimeSeries series = new TimeSeries("Available Washers in Couch Center in the Last " + timeSpan);
+
+        Map<Date, Integer> points = FilterGraph.getGraphPointsWasher(timeSpan, groupTime);
 
         for(Date time:points.keySet()){
             series.add(new Second(time), points.get(time));
