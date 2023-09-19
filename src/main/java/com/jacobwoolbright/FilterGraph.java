@@ -81,7 +81,7 @@ public class FilterGraph {
 
         Map<Date, Integer> data = DatabaseManager.getInstance().getWasherAvailabilityRaw(timespan);
 
-        int groupTimeInt = Integer.valueOf(groupTime.substring(0, groupTime.length()-2));
+        int groupTimeInt = Integer.valueOf(groupTime.substring(0, groupTime.length()-1));
 
         for(Date apiDate : data.keySet()){
             boolean found = false;

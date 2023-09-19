@@ -190,20 +190,22 @@ public class DatabaseManager {
         if(timespan.endsWith("d")){
             query = "SELECT time, available\n" +
                     "FROM machines\n" +
-                    "WHERE time >= NOW() - INTERVAL " + timespan.substring(0,timespan.length()-2) + "DAY" +
+                    "WHERE time >= NOW() - INTERVAL " + timespan.substring(0,timespan.length()-1) + " DAY\n" +
                     "AND machineID <= 100;";
         } else if (timespan.endsWith("h")) {
             query = "SELECT time, available\n" +
                     "FROM machines\n" +
-                    "WHERE time >= NOW() - INTERVAL " + timespan.substring(0,timespan.length()-2) + "HOUR" +
+                    "WHERE time >= NOW() - INTERVAL " + timespan.substring(0,timespan.length()-1) + " HOUR\n" +
                     "AND machineID <= 100;";
         }
         else if (timespan.endsWith("m")) {
             query = "SELECT time, available\n" +
                     "FROM machines\n" +
-                    "WHERE time >= NOW() - INTERVAL " + timespan.substring(0,timespan.length()-2) + "MINUTE" +
+                    "WHERE time >= NOW() - INTERVAL " + timespan.substring(0,timespan.length()-1) + " MINUTE\n" +
                     "AND machineID <= 100;";
         }
+
+        System.out.println(query);
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
 
