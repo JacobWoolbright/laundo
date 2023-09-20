@@ -59,7 +59,7 @@ public class GraphMaker {
 
         TimeSeriesCollection dataset = new TimeSeriesCollection(series);
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-                "Available Washers in Couch Center in the Last 24h",
+                "Available Washers in Couch Center in the Last " + timeSpan,
                 "Time",
                 "# of available machines",
                 dataset,
@@ -91,7 +91,7 @@ public class GraphMaker {
 
         TimeSeriesCollection dataset = new TimeSeriesCollection(series);
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-                "Available Washers in Couch Center in the Last 24h",
+                "Available Washers in Couch Center in the Last " + timeSpan + "Grouped by: " + groupTime,
                 "Time",
                 "# of available machines",
                 dataset,
@@ -112,7 +112,7 @@ public class GraphMaker {
         }
     }
 
-    public static void GenerateLineGraphDryers(){
+    public static void generateLineGraphDryers(){
         TimeSeries series = new TimeSeries("Available Dryers in Couch Center in the Last 24h");
 
         Map<Date, Integer> points = FilterGraph.getGraphPointsDryer();
@@ -125,6 +125,70 @@ public class GraphMaker {
         TimeSeriesCollection dataset = new TimeSeriesCollection(series);
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
                 "Available Dryers in Couch Center in the Last 24h",
+                "Time",
+                "# of available machines",
+                dataset,
+                false,
+                true,
+                false
+        );
+
+        XYPlot plot = chart.getXYPlot();
+        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+        plot.setRenderer(renderer);
+
+        try {
+            ChartUtils.saveChartAsPNG(new File("time_line_graph.png"), chart, 800, 600);
+            System.out.println("Chart saved as time_line_graph.png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void generateLineGraphDryers(String timespan){
+        TimeSeries series = new TimeSeries("Available Dryers in Couch Center in the Last " + timespan);
+
+        Map<Date, Integer> points = FilterGraph.getGraphPointsDryer(timespan);
+
+        for(Date time:points.keySet()){
+            series.add(new Second(time), points.get(time));
+        }
+
+        TimeSeriesCollection dataset = new TimeSeriesCollection(series);
+        JFreeChart chart = ChartFactory.createTimeSeriesChart(
+                "Available Dryers in Couch Center in the Last " + timespan,
+                "Time",
+                "# of available machines",
+                dataset,
+                false,
+                true,
+                false
+        );
+
+        XYPlot plot = chart.getXYPlot();
+        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+        plot.setRenderer(renderer);
+
+        try {
+            ChartUtils.saveChartAsPNG(new File("time_line_graph.png"), chart, 800, 600);
+            System.out.println("Chart saved as time_line_graph.png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void generateLineGraphDryers(String timeSpan, String groupTime){
+        TimeSeries series = new TimeSeries("Available Dryers in Couch Center in the Last " + timeSpan);
+
+        Map<Date, Integer> points = FilterGraph.getGraphPointsDryer(timeSpan, groupTime);
+
+        for(Date time:points.keySet()){
+            series.add(new Second(time), points.get(time));
+        }
+
+        TimeSeriesCollection dataset = new TimeSeriesCollection(series);
+        JFreeChart chart = ChartFactory.createTimeSeriesChart(
+                "Available Dryers in Couch Center in the Last " + timeSpan + "Grouped by: " + timeSpan,
                 "Time",
                 "# of available machines",
                 dataset,

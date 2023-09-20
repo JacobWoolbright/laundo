@@ -51,7 +51,14 @@ public class DiscordListeners extends ListenerAdapter {
                     GraphMaker.generateLineGraphWashers();
                 }
             } else if (split[1].equals("dryer") || split[1].equals("dry")) {
-                GraphMaker.GenerateLineGraphDryers(); // TODO: custom dryer graph
+                if(split.length == 3){
+                    GraphMaker.generateLineGraphDryers(split[2]);
+                } else if (split.length == 4) {
+                    GraphMaker.generateLineGraphDryers(split[2], split[3]);
+                }
+                else{
+                    GraphMaker.generateLineGraphDryers();
+                }
             }
             else{
                 event.getMessage().reply("Please use !graph washer or !graph dryer.").queue();

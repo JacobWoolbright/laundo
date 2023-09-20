@@ -157,6 +157,50 @@ public class DatabaseManager {
         return availabilityMap;
     }
 
+    public Map<java.util.Date, Integer> getDryerAvailabilityRaw(String timespan) {
+        Map<java.util.Date, Integer> availabilityMap = new HashMap<>();
+
+        String query = "";
+        if(timespan.endsWith("d")){
+            query = "SELECT time, available\n" +
+                    "FROM machines\n" +
+                    "WHERE time >= NOW() - INTERVAL " + timespan.substring(0,timespan.length()-1) + " DAY\n" +
+                    "AND machineID >= 101;";
+        } else if (timespan.endsWith("h")) {
+            query = "SELECT time, available\n" +
+                    "FROM machines\n" +
+                    "WHERE time >= NOW() - INTERVAL " + timespan.substring(0,timespan.length()-1) + " HOUR\n" +
+                    "AND machineID >= 101;";
+        }
+        else if (timespan.endsWith("m")) {
+            query = "SELECT time, available\n" +
+                    "FROM machines\n" +
+                    "WHERE time >= NOW() - INTERVAL " + timespan.substring(0,timespan.length()-1) + " MINUTE\n" +
+                    "AND machineID >= 101;";
+        }
+
+        System.out.println(query);
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Timestamp captureTime = resultSet.getTimestamp("time");
+                    java.util.Date averageTimeJava = new java.util.Date(captureTime.getTime());
+                    int totalAvailable = resultSet.getInt("available");
+                    availabilityMap.put(averageTimeJava, totalAvailable);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle exception as needed
+        }
+
+
+        return availabilityMap;
+    }
+
     public Map<java.util.Date, Integer> getWasherAvailabilityRaw() {
         Map<java.util.Date, Integer> availabilityMap = new HashMap<>();
 
