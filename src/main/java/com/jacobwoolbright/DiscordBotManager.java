@@ -27,7 +27,7 @@ public class DiscordBotManager {
         return instance;
     }
 
-    public static JDA getJda() {
+    public JDA getJda() {
         return jda;
     }
 }

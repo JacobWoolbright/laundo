@@ -32,9 +32,10 @@ public class DiscordListeners extends ListenerAdapter {
 //            Status status = CheckStatus.CheckStatusOfMachine(machineID);
 //
 //            event.getMessage().reply(status.getStatusString()).queue();
-        } else if (message.startsWith("!bulk")) {
-//            event.getMessage().addReaction(Emoji.fromUnicode("U+2705")).queue();
-//            event.getMessage().replyEmbeds(BulkEmbed.StatusEmbed()).queue();
+        } else if (message.startsWith("!notify")) {
+            String[] split = message.split(" ");
+            NotificationManager.createNotification(split[1], event.getMessage());
+            event.getMessage().reply("I will notify you about machine #" + split[1]).queue();
         }
         else if(message.startsWith("!help")){
 //            event.getMessage().reply("!status (machineId) --> Gives status of the provided machine\n!bulk --> gives the status of all machines").queue();
@@ -82,6 +83,6 @@ public class DiscordListeners extends ListenerAdapter {
             public void run() {
                 message.editMessageEmbeds(BulkEmbed.StatusEmbed()).queue();
             }
-        }, 3*60*1000, 3 * 60 * 1000); // 3 minutes in milliseconds
+        }, 3 * 60 * 1000, 3 * 60 * 1000); // 3 minutes in milliseconds
     }
 }
