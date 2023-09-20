@@ -32,9 +32,10 @@ public class DiscordListeners extends ListenerAdapter {
 //            Status status = CheckStatus.CheckStatusOfMachine(machineID);
 //
 //            event.getMessage().reply(status.getStatusString()).queue();
-        } else if (message.startsWith("!bulk")) {
-//            event.getMessage().addReaction(Emoji.fromUnicode("U+2705")).queue();
-//            event.getMessage().replyEmbeds(BulkEmbed.StatusEmbed()).queue();
+        } else if (message.startsWith("!notify")) {
+            String[] split = message.split(" ");
+            NotificationManager.createNotification(split[1], event.getMessage());
+            event.getMessage().reply("I will notify you about machine #" + split[1]).queue();
         }
         else if(message.startsWith("!help")){
 //            event.getMessage().reply("!status (machineId) --> Gives status of the provided machine\n!bulk --> gives the status of all machines").queue();
@@ -42,13 +43,22 @@ public class DiscordListeners extends ListenerAdapter {
         else if(message.startsWith("!graph")){
             String[] split = message.split(" ");
             if(split[1].equals("washer") || split[1].equals("wash")){
-                GraphMaker.GenerateLineGraphWashers();
-            } else if (split[1].equals("dryer") || split[1].equals("dry")) {
-                if(split.length >= 3){
-                    GraphMaker.GenerateLineGraphDryers(split[2]);
+                if(split.length == 3){
+                    GraphMaker.generateLineGraphWashers(split[2]);
+                } else if (split.length == 4) {
+                    GraphMaker.generateLineGraphWashers(split[2], split[3]);
                 }
                 else{
-                    GraphMaker.GenerateLineGraphDryers();
+                    GraphMaker.generateLineGraphWashers();
+                }
+            } else if (split[1].equals("dryer") || split[1].equals("dry")) {
+                if(split.length == 3){
+                    GraphMaker.generateLineGraphDryers(split[2]);
+                } else if (split.length == 4) {
+                    GraphMaker.generateLineGraphDryers(split[2], split[3]);
+                }
+                else{
+                    GraphMaker.generateLineGraphDryers();
                 }
             }
             else{
@@ -58,8 +68,6 @@ public class DiscordListeners extends ListenerAdapter {
             event.getMessage().reply("Here's your graph:").addFiles(FileUpload.fromData(new File("time_line_graph.png"))).queue();
         } else if (message.startsWith("!test")) {
             FilterGraph.getGraphPointsDryer();
-        } else {
-            System.out.println("Unknown command: " + message);
         }
     }
 
@@ -75,6 +83,6 @@ public class DiscordListeners extends ListenerAdapter {
             public void run() {
                 message.editMessageEmbeds(BulkEmbed.StatusEmbed()).queue();
             }
-        }, 3*60*1000, 3 * 60 * 1000); // 3 minutes in milliseconds
+        }, 3 * 60 * 1000, 3 * 60 * 1000); // 3 minutes in milliseconds
     }
 }
