@@ -42,7 +42,6 @@ public class GraphMaker {
 
         try {
             ChartUtils.saveChartAsPNG(new File("time_line_graph.png"), chart, 800, 600);
-            System.out.println("Chart saved as time_line_graph.png");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -74,7 +73,6 @@ public class GraphMaker {
 
         try {
             ChartUtils.saveChartAsPNG(new File("time_line_graph.png"), chart, 800, 600);
-            System.out.println("Chart saved as time_line_graph.png");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -106,7 +104,6 @@ public class GraphMaker {
 
         try {
             ChartUtils.saveChartAsPNG(new File("time_line_graph.png"), chart, 800, 600);
-            System.out.println("Chart saved as time_line_graph.png");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -139,7 +136,6 @@ public class GraphMaker {
 
         try {
             ChartUtils.saveChartAsPNG(new File("time_line_graph.png"), chart, 800, 600);
-            System.out.println("Chart saved as time_line_graph.png");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -171,7 +167,6 @@ public class GraphMaker {
 
         try {
             ChartUtils.saveChartAsPNG(new File("time_line_graph.png"), chart, 800, 600);
-            System.out.println("Chart saved as time_line_graph.png");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -203,7 +198,6 @@ public class GraphMaker {
 
         try {
             ChartUtils.saveChartAsPNG(new File("time_line_graph.png"), chart, 800, 600);
-            System.out.println("Chart saved as time_line_graph.png");
         } catch (IOException e) {
             e.printStackTrace();
         }
