@@ -57,7 +57,7 @@ public class FilterGraph {
 
         Map<Date, Integer> result = new HashMap<>();
 
-        Map<Date, Integer> data = DatabaseManager.getInstance().getDryerAvailabilityRaw();
+        Map<Date, Integer> data = DatabaseManager.getInstance().getWasherAvailabilityRaw();
 
         for(Date apiDate : data.keySet()){
             boolean found = false;
