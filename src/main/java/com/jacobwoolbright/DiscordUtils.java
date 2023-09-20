@@ -1,8 +1,6 @@
 package com.jacobwoolbright;
 
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.channel.Channel;
-import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class DiscordUtils {
 
