@@ -7,7 +7,7 @@ public class WebDriverManager {
 
     private static WebDriverManager instance;
 
-    private WebDriver driver;
+    private final WebDriver driver;
 
     private WebDriverManager(){
         driver = new ChromeDriver();

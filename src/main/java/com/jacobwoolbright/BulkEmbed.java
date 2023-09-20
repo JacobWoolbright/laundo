@@ -19,8 +19,8 @@ public class BulkEmbed {
         int openDryers = 0;
         int closedWashers = 0;
         int closedDryers = 0;
-        String washers = "";
-        String dryers = "";
+        StringBuilder washers = new StringBuilder();
+        StringBuilder dryers = new StringBuilder();
         for(Status status: statuses){
             if(status.isAvailable()){
                 if(status.isDryer()){
@@ -40,10 +40,10 @@ public class BulkEmbed {
             }
             if(!status.isAvailable() & status.isRunning()){
                 if(status.isDryer()){
-                    dryers += status.getMachineID() + ": " + status.getTimeLeft() + "min\n";
+                    dryers.append(status.getMachineID()).append(": ").append(status.getTimeLeft()).append("min\n");
                 }
                 else{
-                    washers += status.getMachineID() + ": " + status.getTimeLeft() + "min\n";
+                    washers.append(status.getMachineID()).append(": ").append(status.getTimeLeft()).append("min\n");
                 }
             }
         }
@@ -54,8 +54,8 @@ public class BulkEmbed {
 
         eb.setColor(Color.blue);
 
-        eb.addField("Open Washers: " + openWashers, washers, true);
-        eb.addField("Open Dryers: " + openDryers, dryers, true);
+        eb.addField("Open Washers: " + openWashers, washers.toString(), true);
+        eb.addField("Open Dryers: " + openDryers, dryers.toString(), true);
 
         eb.setAuthor("Jacob Woolbright");
 
