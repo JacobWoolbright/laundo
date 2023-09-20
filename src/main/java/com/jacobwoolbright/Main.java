@@ -10,11 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-//        init discord bot
         DiscordBotManager.getInstance();
-
-
-        //CheckStatus.CheckStatusOfMachine("86");
 
     }
 }
