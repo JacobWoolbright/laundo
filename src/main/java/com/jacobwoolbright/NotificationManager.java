@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class NotificationManager {
 
-    private static ArrayList<Notification> notifications = new ArrayList<>();
+    private static final ArrayList<Notification> notifications = new ArrayList<>();
 
     private static void addNotification(Notification notification){
         notifications.add(notification);
