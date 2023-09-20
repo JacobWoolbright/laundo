@@ -137,6 +137,7 @@ public class CheckStatus {
         for(String key : MachineIdToLink.getIdToLinkMap().keySet()){
 
             Status status = CheckStatusOfMachine(key);
+            NotificationManager.checkNotification(status);
             statusList.add(status);
         }
         return statusList;
