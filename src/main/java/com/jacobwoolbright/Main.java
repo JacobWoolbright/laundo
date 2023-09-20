@@ -8,12 +8,6 @@ import java.util.Map;
 
 public class Main {
 
-
-
-    public Main(Map<String, String> idToLink) {
-
-    }
-
     public static void main(String[] args) {
 
 //        init discord bot
