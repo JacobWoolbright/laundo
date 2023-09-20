@@ -3,7 +3,6 @@ package com.jacobwoolbright;
 import net.dv8tion.jda.api.entities.Message;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class NotificationManager {
 
