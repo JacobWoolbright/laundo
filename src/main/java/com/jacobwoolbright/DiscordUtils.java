@@ -10,12 +10,4 @@ public class DiscordUtils {
         return DiscordBotManager.getInstance().getJda().getTextChannelById(channelID).retrieveMessageById(messageId).complete();
     }
 
-    public static TextChannel getChannelByID(String channelID){
-        return DiscordBotManager.getInstance().getJda().getTextChannelById(channelID);
-    }
-
-    public static void sendMessage(String channelID, String message){
-        getChannelByID(channelID).sendMessage(message).queue();
-    }
-
 }
