@@ -51,20 +51,4 @@ public class Status {
     public boolean isDryer(){
         return Integer.parseInt(machineID) > 100;
     }
-
-    public boolean isWasher(){
-        return Integer.parseInt(machineID) < 100;
-    }
-
-    public String getStatusString(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("Status: ").append(this.statusMessage);
-        sb.append("\n");
-        if(this.isRunning){
-            sb.append("Time left: ").append(this.timeLeft);
-        }
-        return sb.toString();
-
-
-    }
 }

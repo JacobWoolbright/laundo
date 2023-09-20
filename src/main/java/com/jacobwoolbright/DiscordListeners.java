@@ -23,15 +23,7 @@ public class DiscordListeners extends ListenerAdapter {
         String message = event.getMessage().getContentDisplay();
 
         if(message.startsWith("!status ")){
-//            event.getMessage().addReaction(Emoji.fromUnicode("U+2705")).queue();
-//
-//
-//            String[] messageSplit = message.split(" ");
-//            String machineID = messageSplit[messageSplit.length -1];
-//
-//            Status status = CheckStatus.CheckStatusOfMachine(machineID);
-//
-//            event.getMessage().reply(status.getStatusString()).queue();
+
         } else if (message.startsWith("!notify")) {
             String[] split = message.split(" ");
             NotificationManager.createNotification(split[1], event.getMessage());

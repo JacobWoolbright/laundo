@@ -3,11 +3,10 @@ package com.jacobwoolbright;
 import net.dv8tion.jda.api.entities.Message;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class NotificationManager {
 
-    private static ArrayList<Notification> notifications = new ArrayList<>();
+    private static final ArrayList<Notification> notifications = new ArrayList<>();
 
     private static void addNotification(Notification notification){
         notifications.add(notification);
