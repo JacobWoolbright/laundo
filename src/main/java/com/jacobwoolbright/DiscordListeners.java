@@ -67,8 +67,6 @@ public class DiscordListeners extends ListenerAdapter {
             event.getMessage().reply("Here's your graph:").addFiles(FileUpload.fromData(new File("time_line_graph.png"))).queue();
         } else if (message.startsWith("!test")) {
             FilterGraph.getGraphPointsDryer();
-        } else {
-            System.out.println("Unknown command: " + message);
         }
     }
 

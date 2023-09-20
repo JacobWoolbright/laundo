@@ -179,8 +179,6 @@ public class DatabaseManager {
                     "AND machineID >= 101;";
         }
 
-        System.out.println(query);
-
         try (PreparedStatement statement = connection.prepareStatement(query)) {
 
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -248,8 +246,6 @@ public class DatabaseManager {
                     "WHERE time >= NOW() - INTERVAL " + timespan.substring(0,timespan.length()-1) + " MINUTE\n" +
                     "AND machineID <= 100;";
         }
-
-        System.out.println(query);
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
 
