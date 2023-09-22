@@ -29,7 +29,6 @@ public class CheckStatus {
                     status.setAvailable(false);
                     status.setTimeLeft(Integer.valueOf(timeString));
                     status.setStatusMessage("running");
-                    DatabaseManager.getInstance().insertStatus(status);
                     return status;
                 }
             }
@@ -38,7 +37,6 @@ public class CheckStatus {
                     status.setAvailable(false);
                     status.setStatusMessage("not responding...");
                     status.setRunning(false);
-                    DatabaseManager.getInstance().insertStatus(status);
                     return status;
                 }
             }
@@ -51,7 +49,6 @@ public class CheckStatus {
                     status.setRunning(false);
                     status.setAvailable(true);
                     status.setStatusMessage("press start");
-                    DatabaseManager.getInstance().insertStatus(status);
                     return status;
                 }
             }
@@ -60,7 +57,6 @@ public class CheckStatus {
                     status.setAvailable(false);
                     status.setStatusMessage("not responding...");
                     status.setRunning(false);
-                    DatabaseManager.getInstance().insertStatus(status);
                     return status;
                 }
             }
@@ -72,7 +68,6 @@ public class CheckStatus {
                     status.setRunning(false);
                     status.setAvailable(true);
                     status.setStatusMessage("free");
-                    DatabaseManager.getInstance().insertStatus(status);
                     return status;
                 }
             }
@@ -81,7 +76,6 @@ public class CheckStatus {
                     status.setAvailable(false);
                     status.setStatusMessage("not responding...");
                     status.setRunning(false);
-                    DatabaseManager.getInstance().insertStatus(status);
                     return status;
                 }
             }
@@ -93,7 +87,6 @@ public class CheckStatus {
                     status.setRunning(false);
                     status.setAvailable(false);
                     status.setStatusMessage("offline");
-                    DatabaseManager.getInstance().insertStatus(status);
                     return status;
                 }
             }
@@ -102,7 +95,6 @@ public class CheckStatus {
                     status.setAvailable(false);
                     status.setStatusMessage("not responding...");
                     status.setRunning(false);
-                    DatabaseManager.getInstance().insertStatus(status);
                     return status;
                 }
             }
@@ -114,7 +106,6 @@ public class CheckStatus {
                     status.setRunning(false);
                     status.setAvailable(true);
                     status.setStatusMessage("done");
-                    DatabaseManager.getInstance().insertStatus(status);
                     return status;
                 }
             }
@@ -123,7 +114,6 @@ public class CheckStatus {
                     status.setAvailable(false);
                     status.setStatusMessage("not responding...");
                     status.setRunning(false);
-                    DatabaseManager.getInstance().insertStatus(status);
                     return status;
                 }
             }
@@ -140,6 +130,10 @@ public class CheckStatus {
             NotificationManager.checkNotification(status);
             statusList.add(status);
         }
+
+//        commit to database
+        DatabaseManager.getInstance().insertStatuses(statusList);
+
         return statusList;
     }
 
