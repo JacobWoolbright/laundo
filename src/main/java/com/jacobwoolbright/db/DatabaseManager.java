@@ -3,6 +3,7 @@ package com.jacobwoolbright.db;
 import com.jacobwoolbright.Status;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,6 +72,33 @@ public class DatabaseManager {
             e.printStackTrace();
         }
     }
+
+    public void insertStatuses(ArrayList<Status> statuses) {
+        try (Connection connection = DriverManager.getConnection(jdbcUrl, username, password)) {
+            String query = "INSERT INTO machines (machineID, status, timeLeft, running, available) VALUES (?, ?, ?, ?, ?)";
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                for (Status status : statuses) {
+                    statement.setString(1, status.getMachineID());
+
+                    if (status.getStatusMessage() != null) {
+                        statement.setString(2, status.getStatusMessage());
+                    } else {
+                        statement.setNull(2, Types.VARCHAR);
+                    }
+
+                    statement.setInt(3, status.getTimeLeft());
+                    statement.setBoolean(4, status.isRunning());
+                    statement.setBoolean(5, status.isAvailable());
+
+                    statement.addBatch();
+                }
+                statement.executeBatch();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public Map<java.util.Date, Integer> getDryerAvailabilityRaw() {
         Map<java.util.Date, Integer> availabilityMap = new HashMap<>();
