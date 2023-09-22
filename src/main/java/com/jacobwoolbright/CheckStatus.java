@@ -130,6 +130,10 @@ public class CheckStatus {
             NotificationManager.checkNotification(status);
             statusList.add(status);
         }
+
+//        commit to database
+        DatabaseManager.getInstance().insertStatuses(statusList);
+
         return statusList;
     }
 
