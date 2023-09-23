@@ -1,5 +1,6 @@
 package com.jacobwoolbright.db;
 
+import com.jacobwoolbright.ConfigReader;
 import com.jacobwoolbright.Status;
 
 import java.sql.*;
@@ -11,9 +12,9 @@ public class DatabaseManager {
 
     private static DatabaseManager instance;
 
-    private static final String jdbcUrl = "jdbc:mysql://localhost:3306/laundo"; // Replace with your database URL
-    private static final String username = "root";
-    private static final String password = "***REMOVED***";
+    private static final String jdbcUrl = ConfigReader.getDbUrl();
+    private static final String username = ConfigReader.getDbUsername();
+    private static final String password = ConfigReader.getDbPassword();
 
     private Connection connection;
 
