@@ -12,7 +12,7 @@ public class DiscordBotManager {
     private static JDA jda;
 
     private DiscordBotManager(){
-        jda = JDABuilder.createDefault("MTE0MzMxMDU1ODYzMjg4NjQwNA.Gax9SF.h43tSmy2fyhAnZm2tnUgE3aC8GS-tVKXiwkeDs").setActivity(Activity.watching("Couch Laundry Room")).enableIntents(GatewayIntent.MESSAGE_CONTENT).build();
+        jda = JDABuilder.createDefault(ConfigReader.getBotToken()).setActivity(Activity.watching("Couch Laundry Room")).enableIntents(GatewayIntent.MESSAGE_CONTENT).build();
         jda.addEventListener(new DiscordListeners());
     }
 
