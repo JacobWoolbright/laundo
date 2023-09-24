@@ -1,5 +1,7 @@
 package com.jacobwoolbright;
 
+import java.util.Date;
+
 public class Availability {
     private java.util.Date time;
     private Integer available;
@@ -9,5 +11,11 @@ public class Availability {
         this.available = available;
     }
 
-    // getters and setters
+    public Date getTime() {
+        return time;
+    }
+
+    public Integer getAvailable() {
+        return available;
+    }
 }
