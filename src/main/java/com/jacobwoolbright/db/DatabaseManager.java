@@ -1,11 +1,14 @@
 package com.jacobwoolbright.db;
 
+import com.jacobwoolbright.Availability;
 import com.jacobwoolbright.ConfigReader;
 import com.jacobwoolbright.Status;
+import org.checkerframework.checker.units.qual.A;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DatabaseManager {
@@ -101,8 +104,8 @@ public class DatabaseManager {
     }
 
 
-    public Map<java.util.Date, Integer> getDryerAvailabilityRaw() {
-        Map<java.util.Date, Integer> availabilityMap = new HashMap<>();
+    public ArrayList<Availability> getDryerAvailabilityRaw() {
+        ArrayList<Availability> availabilityList = new ArrayList<>();
 
         String query = "SELECT time, available\n" +
                 "FROM machines\n" +
@@ -116,7 +119,7 @@ public class DatabaseManager {
                     Timestamp captureTime = resultSet.getTimestamp("time");
                     java.util.Date averageTimeJava = new java.util.Date(captureTime.getTime());
                     int totalAvailable = resultSet.getInt("available");
-                    availabilityMap.put(averageTimeJava, totalAvailable);
+                    availabilityList.add(new Availability(averageTimeJava, totalAvailable));
                 }
             }
 
@@ -125,11 +128,11 @@ public class DatabaseManager {
             // Handle exception as needed
         }
 
-        return availabilityMap;
+        return availabilityList;
     }
 
-    public Map<java.util.Date, Integer> getWasherAvailabilityRaw() {
-        Map<java.util.Date, Integer> availabilityMap = new HashMap<>();
+    public ArrayList<Availability> getWasherAvailabilityRaw() {
+        ArrayList<Availability> availabilityList = new ArrayList<>();
 
         String query = "SELECT time, available\n" +
                 "FROM machines\n" +
@@ -143,7 +146,7 @@ public class DatabaseManager {
                     Timestamp captureTime = resultSet.getTimestamp("time");
                     java.util.Date averageTimeJava = new java.util.Date(captureTime.getTime());
                     int totalAvailable = resultSet.getInt("available");
-                    availabilityMap.put(averageTimeJava, totalAvailable);
+                    availabilityList.add(new Availability(averageTimeJava, totalAvailable));
                 }
             }
 
@@ -152,11 +155,11 @@ public class DatabaseManager {
             // Handle exception as needed
         }
 
-        return availabilityMap;
+        return availabilityList;
     }
 
-    public Map<java.util.Date, Integer> getDryerAvailabilityRaw(String timespan) {
-        Map<java.util.Date, Integer> availabilityMap = new HashMap<>();
+    public ArrayList<Availability> getDryerAvailabilityRaw(String timespan) {
+        ArrayList<Availability> availabilityList = new ArrayList<>();
 
         String query = "";
         if(timespan.endsWith("d")){
@@ -184,7 +187,7 @@ public class DatabaseManager {
                     Timestamp captureTime = resultSet.getTimestamp("time");
                     java.util.Date averageTimeJava = new java.util.Date(captureTime.getTime());
                     int totalAvailable = resultSet.getInt("available");
-                    availabilityMap.put(averageTimeJava, totalAvailable);
+                    availabilityList.add(new Availability(averageTimeJava, totalAvailable));
                 }
             }
 
@@ -194,11 +197,11 @@ public class DatabaseManager {
         }
 
 
-        return availabilityMap;
+        return availabilityList;
     }
 
-    public Map<java.util.Date, Integer> getWasherAvailabilityRaw(String timespan) {
-        Map<java.util.Date, Integer> availabilityMap = new HashMap<>();
+    public ArrayList<Availability> getWasherAvailabilityRaw(String timespan) {
+        ArrayList<Availability> availabilityList = new ArrayList<>();
 
         String query = "";
         if(timespan.endsWith("d")){
@@ -226,7 +229,7 @@ public class DatabaseManager {
                     Timestamp captureTime = resultSet.getTimestamp("time");
                     java.util.Date averageTimeJava = new java.util.Date(captureTime.getTime());
                     int totalAvailable = resultSet.getInt("available");
-                    availabilityMap.put(averageTimeJava, totalAvailable);
+                    availabilityList.add(new Availability(averageTimeJava, totalAvailable));
                 }
             }
 
@@ -236,6 +239,6 @@ public class DatabaseManager {
         }
 
 
-        return availabilityMap;
+        return availabilityList;
     }
 }
