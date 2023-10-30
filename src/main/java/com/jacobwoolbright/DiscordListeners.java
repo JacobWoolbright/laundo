@@ -1,6 +1,5 @@
 package com.jacobwoolbright;
 
-import com.sun.istack.internal.NotNull;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
@@ -14,7 +13,7 @@ import java.util.TimerTask;
 public class DiscordListeners extends ListenerAdapter {
 
     @Override
-    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
+    public void onMessageReceived(MessageReceivedEvent event) {
 
         if(event.getAuthor().getId().equals("1143310558632886404")){
             return;
@@ -64,7 +63,7 @@ public class DiscordListeners extends ListenerAdapter {
     }
 
     @Override
-    public void onReady(@org.jetbrains.annotations.NotNull ReadyEvent event) {
+    public void onReady(ReadyEvent event) {
 
         Message message = DiscordUtils.getMessageById("1143904083648979006","1143900612875010148");
 
